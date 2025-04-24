@@ -1,0 +1,181 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+
+    "alpha.water.*"
+    {
+        nAlphaCorr      3;
+        nAlphaSubCycles 1;
+        cAlpha          1;
+        icAlpha         0;
+
+        MULESCorr       yes;
+        nLimiterIter    10;
+        alphaApplyPrevCorr  yes;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-8;
+        relTol          0;
+        minIter         1;
+    }
+
+   "pcorr.*"
+	           {
+			                   solver       GAMG;
+					                   smoother     DIC;
+							                   tolerance    0.001;
+									                   relTol       0;
+											           }
+           p_rgh
+		           {
+				                   solver       GAMG;
+						                   smoother     DIC;
+								                   tolerance    1e-08;
+										                   relTol       0.01;
+												           }
+	           p_rghFinal
+			           {
+					                   $p_rgh;
+							                   relTol    0.001;
+									           }
+
+
+
+    "(U|k|omega).*"
+    {
+        solver          smoothSolver;
+        smoother        GaussSeidel;
+        nSweeps         1;
+        tolerance       1e-09;
+        relTol          0.01;
+        minIter         1;
+    }
+
+
+        "(U|k|omega)Final"
+		        {
+				                $U;
+						                relTol    0.001;
+								        }
+
+    Phi
+    {
+        solver          GAMG;
+        smoother        DIC;
+        tolerance       1e-06;
+        relTol          0.01;
+    }
+
+
+
+
+"cellDisplacement.*"
+        {
+                solver       GAMG;
+                smoother     GaussSeidel;
+                tolerance    1e-09;
+                relTol       0;
+        }
+        yPsi
+        {
+                solver       GAMG;
+                smoother     GaussSeidel;
+                tolerance    1e-09;
+                relTol       0.0;
+        }
+        yPsiFinal
+        {
+                $yPsi;
+        }
+}
+
+
+PIMPLE
+{
+    momentumPredictor   no;
+
+    nOuterCorrectors   10;
+    nCorrectors         2;
+    nNonOrthogonalCorrectors 2;
+correctPhi yes;
+turbOnFinalIterOnly yes;
+    maxCo               10;
+    maxAlphaCo          1;
+     consistent yes;
+    rDeltaTSmoothingCoeff 0.05;
+    rDeltaTDampingCoeff 0.5;
+    nAlphaSpreadIter    0;
+    nAlphaSweepIter     0;
+    maxDeltaT           1;
+
+
+    residualControl
+    {
+     	p_rgh
+     	{
+      		tolerance 1e-4;
+      		relTol 0;
+     	}
+    }
+
+}
+
+
+SIMPLE
+{
+	    nNonOrthogonalCorrectors 2;
+	        consistent yes;
+residualControl
+{
+	    p           1e-4;
+	     U   1e-4;
+}
+
+}
+potentialFlow
+{
+	    nNonOrthogonalCorrectors 10;
+	        consistent yes;
+		PhiRefCell 0;
+		PhiRefValue 0;
+}
+
+
+relaxationFactors
+{
+	fields
+	{
+
+	".*" 1;	
+}
+	equations
+	{
+		".*"         1;
+		".*"    1;
+	}
+}
+
+
+cache
+{
+    grad(U);
+}
+
+
+// ************************************************************************* //
