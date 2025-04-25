@@ -22,7 +22,7 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         25; // flow should pass at least once the domain
+endTime         30; // flow should pass at least once the domain
 
 deltaT          0.00775; //calc deltaT with minCellSize/Speed to satisfy CFL criterion
 
