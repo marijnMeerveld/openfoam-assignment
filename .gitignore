@@ -1,0 +1,8 @@
+/Meshed
+/Results
+
+**/kelvinWake*.obj
+*/constant/extendedFeatureEdgeMesh/ship_edgeMesh.obj
+*/system/blSpecsDict
+*/system/blockMeshDict
+*/system/controlDict
