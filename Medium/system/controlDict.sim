@@ -24,7 +24,7 @@ stopAt          endTime;
 
 endTime         25; // flow should pass at least once the domain
 
-deltaT          0.015; //calc deltaT with minCellSize/Speed to satisfy CFL criterion
+deltaT          0.0109; //calc deltaT with minCellSize/Speed to satisfy CFL criterion
 
 writeControl    timeStep;
 
