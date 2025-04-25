@@ -5,8 +5,7 @@ cd "${0%/*}" || exit                                # Run from this directory
 
 foamCleanTutorials
 touch case.foam
-
-
+cp system/controlDict.mesh system/controlDict
 
 surfaceFeatureExtract
 python3 calcBLParams.py
@@ -14,7 +13,6 @@ python3 writeBlockMesh.py
 python3 createRefineRegions.py
 
 blockMesh
-cp system/controlDict.mesh system/controlDict
 
 decomposePar
 
