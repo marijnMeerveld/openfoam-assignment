@@ -15,6 +15,6 @@ decomposePar
 
 
 
-mpirun -np 8 interFoam -parallel
+mpirun interFoam -parallel
 
 

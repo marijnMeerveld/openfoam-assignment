@@ -18,9 +18,9 @@ cp system/controlDict.mesh system/controlDict
 
 decomposePar
 
-mpirun -np 6 snappyHexMesh -dict system/snappyHexMeshDict.1 -parallel 
-mpirun -np 6 snappyHexMesh -dict system/snappyHexMeshDict.2 -parallel 
-mpirun -np 6 snappyHexMesh -dict system/snappyHexMeshDict.3 -parallel 
+mpirun snappyHexMesh -dict system/snappyHexMeshDict.1 -parallel 
+mpirun snappyHexMesh -dict system/snappyHexMeshDict.2 -parallel 
+mpirun snappyHexMesh -dict system/snappyHexMeshDict.3 -parallel 
 
 
 reconstructParMesh
