@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name="KVLCC2_fine"
+#SBATCH --job-name="KVLCC2_v2"
 #SBATCH --time=10:00:00
 #SBATCH --partition=compute
 #SBATCH --ntasks=64
